@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "todoforge"
+version = "0.0.1"
+description = ""
+authors = ["Hemanth <hemanthhari2000@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+typer = "^0.12.5"
+pydantic = "^2.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tdf = "todoforge.main:app"
