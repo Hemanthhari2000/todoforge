@@ -1,3 +1,5 @@
+import sys
+
 import typer
 from rich import print
 
@@ -103,7 +105,7 @@ def switch(space_name: str):
 
     if space_name not in spaces:
         print(
-            f":grimacing: Oh no... [red]{space_name}[/red] space is not available. Please create it first"
+            f":grimacing: Oh no... '[red]{space_name}[/red]' space is not available. Please create it first"
         )
         raise typer.Exit()
 
@@ -114,7 +116,7 @@ def switch(space_name: str):
             "spaces": spaces,
         },
     )
-    print(f"Switched to [green]{space_name}[/green] space")
+    print(f"Switched to '[green]{space_name}[/green]' space")
 
 
 @app.command()
@@ -151,7 +153,7 @@ def rename(old_name: str, new_name: str):
     old_todo_filename.rename(DEFAULT_TODO_FOLDER / f"{new_name}_todo.json")
 
     print(
-        f"Space [italic]{old_name}[/italic] has been renamed to [italic]{new_name}[/italic]"
+        f"Space [green]{old_name}[/green] has been renamed to [green]{new_name}[/green]"
     )
 
 
@@ -175,7 +177,19 @@ def remove(space_name: str):
     current_space = todo_config.get_current_space()
     space_name = current_space if space_name == "." else space_name
     typer.confirm(f"Do you really want to delete {space_name}?", abort=True)
+    typer.confirm(
+        f"Be adviced, this will delete all of your saved todos too. Do you still want to continue?",
+        abort=True,
+    )
 
+    todo_filename = DEFAULT_TODO_FOLDER / f"{space_name}_todo.json"
+    if not todo_filename.exists():
+        print(f"Space '[green]{space_name}_todo.json[/green]' does not exist.")
+        typer.Exit()
+        sys.exit(1)
+
+    todo_filename.unlink()
+    print(f"Space '[green]{space_name}[/green]' has been removed.")
     spaces = todo_config.get_spaces_list()
     spaces.remove(space_name)
 
@@ -189,10 +203,3 @@ def remove(space_name: str):
             "spaces": spaces,
         },
     )
-
-    todo_filename = DEFAULT_TODO_FOLDER / f"{space_name}_todo.json"
-    if todo_filename.exists():
-        todo_filename.unlink()
-        print(f"Space {space_name} has been removed.")
-    else:
-        print(f"Space {space_name}_todo.json does not exist.")
