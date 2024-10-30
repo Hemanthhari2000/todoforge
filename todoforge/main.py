@@ -9,15 +9,18 @@ from typing_extensions import Annotated
 
 from todoforge import __app_name__
 from todoforge.commands import spaces
+from todoforge.utils.config import todo_config
 from todoforge.utils.db import (
     get_todos,
     save_todos,
 )
 from todoforge.utils.helper import (
     edit_task_title_from_todo,
+    handle_toggle_space_key,
     remove_task_from_todo,
-    update_done_status,
+    update_todo_status,
 )
+from todoforge.utils.menu import show_options
 from todoforge.utils.models import TodoModel
 
 app = typer.Typer(no_args_is_help=True)
@@ -33,9 +36,10 @@ def ls(
 ):
     """Show todos in current space."""
 
+    current_space = todo_config.get_current_space()
     todos = get_todos()
     console = Console()
-    table = Table(title="Todo List", box=box.MARKDOWN)
+    table = Table(title=f"{current_space.capitalize()}'s Todo List", box=box.MARKDOWN)
 
     table.add_column("Id", justify="left", style="grey50", no_wrap=True)
     table.add_column("Title", justify="left", style="light_sea_green")
@@ -87,6 +91,20 @@ def add(
 
 
 @app.command()
+def toggle():
+    """Toggle Task in an interactive window."""
+    todos = get_todos()
+    current_space = todo_config.get_current_space()
+    updated_todos = show_options(
+        title=f"{current_space.capitalize()}'s Todo List",
+        items=todos["todos"],
+        callback=handle_toggle_space_key,
+    )
+
+    save_todos({"todos": updated_todos})
+
+
+@app.command()
 def done(
     todo_id: Annotated[
         str,
@@ -98,7 +116,7 @@ def done(
     ]
 ):
     """Mark todo as done."""
-    update_done_status(todo_id=todo_id, status=True)
+    update_todo_status(todo_id=todo_id, status=True)
 
 
 @app.command()
@@ -113,7 +131,7 @@ def undo(
     ]
 ):
     """Mark todo as undone."""
-    update_done_status(todo_id=todo_id, status=False)
+    update_todo_status(todo_id=todo_id, status=False)
 
 
 @app.command()
