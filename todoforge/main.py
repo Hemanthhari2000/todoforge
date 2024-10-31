@@ -1,3 +1,4 @@
+import sys
 from textwrap import shorten
 
 import typer
@@ -7,7 +8,6 @@ from rich.prompt import Prompt
 from rich.table import Table
 from typing_extensions import Annotated
 
-from todoforge import __app_name__
 from todoforge.commands import spaces
 from todoforge.utils.config import todo_config
 from todoforge.utils.db import (
@@ -37,6 +37,12 @@ def ls(
     """Show todos in current space."""
 
     current_space = todo_config.get_current_space()
+    if current_space == "":
+        print(
+            "Oops... Looks like there is no space available. Please create a new space using [italic][green]tdf spaces add <name>[/green][/italic] and then try again."
+        )
+        typer.Exit()
+        sys.exit(1)
     todos = get_todos()
     console = Console()
     table = Table(title=f"{current_space.capitalize()}'s Todo List", box=box.MARKDOWN)
@@ -61,7 +67,7 @@ def ls(
 
     if not sorted_todos:
         print(
-            "mmm... looks like you have no tasks at the moment. C'mon now create some new ones :smirk:"
+            "mmm... looks like you have no tasks at the moment. Create some new ones using [italic][green]tdf add <task>[/green][/italic]"
         )
 
 

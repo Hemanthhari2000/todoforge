@@ -9,16 +9,26 @@ from todoforge.utils.constants import (
 
 class TodoConfig:
     def __init__(self) -> None:
-        self._cached_config: dict[str, dict] = {}
+        self._cached_config: dict[str, dict[Any, Any]] = {}
 
     def get_space_config(self) -> dict:
         return self._load_config(DEFAULT_TODO_CONFIG)
 
     def get_current_space(self) -> str:
-        return self._get_value_from_config("current_space", expected_type=str)
+        current_space = self._get_value_from_config("current_space", expected_type=str)
+        if not isinstance(current_space, str):
+            raise TypeError(
+                f"current space is expected to be of type {str.__name__}, but got {type(current_space).__name__}"
+            )
+        return current_space
 
     def get_spaces_list(self) -> list[str]:
-        return self._get_value_from_config("spaces", expected_type=list)
+        spaces = self._get_value_from_config("spaces", expected_type=list)
+        if not isinstance(spaces, list):
+            raise TypeError(
+                f"spaces is expected to be of type {list.__name__}, but got {type(spaces).__name__}."
+            )
+        return spaces
 
     def get(self, filepath: Path) -> dict:
         return self._load_config(filepath)
@@ -27,11 +37,11 @@ class TodoConfig:
         self._write_to_file(filepath=filepath, content=content)
         self._cached_config[str(filepath)] = content
 
-    def _load_config(self, filepath: Path) -> dict:
+    def _load_config(self, filepath: Path) -> dict[Any, Any]:
         filepath_str = str(filepath)
         if filepath_str not in self._cached_config:
             self._cached_config[filepath_str] = self._read_from_file(filepath)
-        return self._cached_config.get(filepath_str)
+        return self._cached_config.get(filepath_str, {})
 
     def _read_from_file(self, filepath: Path) -> dict:
         if not filepath.exists():

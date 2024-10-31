@@ -5,7 +5,7 @@ from todoforge.utils.constants import (
 from todoforge.utils.db import get_todos
 
 
-def update_todo_status(todo_id: str, status: bool = None) -> None:
+def update_todo_status(todo_id: str, status: bool | None = None) -> None:
     todos = get_todos()
     current_space = todo_config.get_current_space()
     todo_filename = f"{current_space}_todo.json"
@@ -63,4 +63,3 @@ def handle_toggle_space_key(todos, idx):
     item_to_toggle = todos[idx]
     todos[idx]["done"] = not item_to_toggle["done"]
     return todos
-

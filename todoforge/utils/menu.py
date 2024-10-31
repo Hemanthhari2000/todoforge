@@ -17,7 +17,9 @@ def show_options(
 ):
     screen = curses.initscr()
 
-    checked = lambda i: i.get("done")
+    def checked(todo):
+        return todo.get("done")
+
     try:
         curses.start_color()
         curses.use_default_colors()
@@ -77,8 +79,12 @@ def show_options(
 
             screen.addstr(pos + offset_y + 3, 7, "<SPACE>", curses.A_BOLD | info_style)
             screen.addstr(pos + offset_y + 3, 18, "to toggle", info_style)
-            screen.addstr(pos + offset_y + 4, 7, "q", curses.A_BOLD | info_style)
-            screen.addstr(pos + offset_y + 4, 18, "to exit", info_style)
+
+            screen.addstr(pos + offset_y + 4, 7, "<k, j>", curses.A_BOLD | info_style)
+            screen.addstr(pos + offset_y + 4, 18, "navigate up and down", info_style)
+
+            screen.addstr(pos + offset_y + 5, 7, "<q>", curses.A_BOLD | info_style)
+            screen.addstr(pos + offset_y + 5, 18, "to exit", info_style)
 
             key = screen.getch()
 
@@ -89,11 +95,8 @@ def show_options(
             elif key in (curses.KEY_UP, ord("k")):
                 current_pos = current_pos - 1 if current_pos > 0 else no_items - 1
             elif key == SPACE_KEY:
-                try:
-                    item_index = items.index(items_sorted[current_pos])
-                    items = callback(items, item_index)
-                except:
-                    pass
+                item_index = items.index(items_sorted[current_pos])
+                items = callback(items, item_index)
             elif key in EXIT_KEYS:
                 return items
     finally:

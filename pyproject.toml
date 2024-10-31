@@ -9,7 +9,32 @@ readme = "README.md"
 python = "^3.12"
 typer = "^0.12.5"
 pydantic = "^2.9.2"
+black = "^24.10.0"
+ruff = "^0.7.1"
+pytest = "^8.3.3"
+pre-commit = "^4.0.1"
+mypy = "^1.13.0"
 
+[tool.black]
+skip-string-normalization = true
+line-length = 88
+extend-exclude = '''
+/(
+  | .env
+  | .venv
+  | venv
+  | notebooks
+)/
+'''
+
+[tool.ruff]
+line-length = 79
+exclude = [".env", ".venv", "venv", "notebooks"]
+
+[tool.ruff.lint]
+fixable = ["I"]
+ignore = ["E501"]
+select = ["E", "F", "I", "W"]
 
 [build-system]
 requires = ["poetry-core"]
