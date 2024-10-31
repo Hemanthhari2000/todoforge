@@ -20,8 +20,8 @@ from todoforge.utils.helper import (
     remove_task_from_todo,
     update_todo_status,
 )
-from todoforge.utils.menu import show_options
 from todoforge.utils.models import TodoModel
+from todoforge.utils.ui.menu import show_options
 
 app = typer.Typer(no_args_is_help=True)
 app.add_typer(spaces.app, name="spaces", help="Manage spaces", add_help_option=True)
