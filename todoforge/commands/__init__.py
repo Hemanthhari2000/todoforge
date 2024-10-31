@@ -1,1 +1,1 @@
-from . import spaces
+from . import spaces as spaces

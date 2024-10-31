@@ -36,7 +36,7 @@ def add(space_name: str):
             DEFAULT_TODO_FOLDER.mkdir(parents=True, exist_ok=True)
 
         space_todo_filename = f"{space_name}_todo.json"
-        todo_content = {
+        todo_content: dict = {
             "todos": [],
         }
 
@@ -178,7 +178,7 @@ def remove(space_name: str):
     space_name = current_space if space_name == "." else space_name
     typer.confirm(f"Do you really want to delete {space_name}?", abort=True)
     typer.confirm(
-        f"Be adviced, this will delete all of your saved todos too. Do you still want to continue?",
+        "Be adviced, this will delete all of your saved todos too. Do you still want to continue?",
         abort=True,
     )
 
@@ -194,8 +194,7 @@ def remove(space_name: str):
     spaces.remove(space_name)
 
     if space_name == current_space:
-        if len(spaces) > 0:
-            current_space = spaces[0]
+        current_space = spaces[0] if len(spaces) > 0 else ""
     todo_config.save(
         filepath=DEFAULT_TODO_CONFIG,
         content={
