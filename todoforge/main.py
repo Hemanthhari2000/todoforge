@@ -1,4 +1,3 @@
-import sys
 from textwrap import shorten
 
 import typer
@@ -41,9 +40,14 @@ def ls(
         print(
             "Oops... Looks like there is no space available. Please create a new space using [italic][green]tdf spaces add <name>[/green][/italic] and then try again."
         )
-        typer.Exit()
-        sys.exit(1)
+        raise typer.Exit(code=1)
     todos = get_todos()
+    if len(todos["todos"]) == 0:
+        print(
+            "mmm... looks like you have no tasks at the moment. Create some new ones using [italic][green]tdf add <task>[/green][/italic]"
+        )
+        raise typer.Exit(code=1)
+
     console = Console()
     table = Table(title=f"{current_space.capitalize()}'s Todo List", box=box.MARKDOWN)
 
@@ -64,11 +68,6 @@ def ls(
         )
 
     console.print(table)
-
-    if not sorted_todos:
-        print(
-            "mmm... looks like you have no tasks at the moment. Create some new ones using [italic][green]tdf add <task>[/green][/italic]"
-        )
 
 
 @app.command()

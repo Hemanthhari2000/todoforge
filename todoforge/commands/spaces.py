@@ -1,5 +1,3 @@
-import sys
-
 import typer
 from rich import print
 
@@ -185,8 +183,7 @@ def remove(space_name: str):
     todo_filename = DEFAULT_TODO_FOLDER / f"{space_name}_todo.json"
     if not todo_filename.exists():
         print(f"Space '[green]{space_name}_todo.json[/green]' does not exist.")
-        typer.Exit()
-        sys.exit(1)
+        raise typer.Exit(code=1)
 
     todo_filename.unlink()
     print(f"Space '[green]{space_name}[/green]' has been removed.")
