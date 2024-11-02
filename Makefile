@@ -41,7 +41,7 @@ test:
 
 # Run all for dev
 .PHONY: all-dev
-all-dev: ruff format check 
+all-dev: ruff format check test
 
 
 
