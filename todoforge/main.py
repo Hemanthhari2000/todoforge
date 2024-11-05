@@ -1,3 +1,4 @@
+# type: ignore
 from textwrap import shorten
 
 import typer
