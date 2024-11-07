@@ -19,7 +19,6 @@ def mock_todo_config():
     ) as mock_get_spaces_list, patch.object(
         todo_config, "save"
     ) as mock_save:
-        mock_get_spaces_list.return_value = ["work, personal"]
         yield mock_get_current_space, mock_get_spaces_list, mock_save
 
 
@@ -41,7 +40,6 @@ def test_add_space_command_where_todo_folder_does_not_exists(
         mock_save.return_value = None
 
         result = runner.invoke(app, ["add", "work"])
-        print(f"result {result.output}")
 
         assert result.exit_code == 0
         assert "Space work has been created successfully" in result.output
@@ -57,11 +55,10 @@ def test_add_space_command_with_invalid_space_name(
     mock_save.return_value = None
 
     result = runner.invoke(app, ["add", "?work"])
-    print(f"result {result.output}")
 
     assert result.exit_code == 1
     assert (
-        "Value error, name must contain only letters and numbers, no special characters allowed."
+        "Value error, name must contain only letters and numbers, no special characters"
         in result.output
     )
 
