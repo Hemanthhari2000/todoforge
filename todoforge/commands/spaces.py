@@ -55,7 +55,7 @@ def add(space_name: str):
 
     except (ValueError, OSError) as e:
         print(f"[red]{e}[/red]")
-        raise typer.Exit()
+        raise typer.Exit(code=1)
 
     print(f"Space [green]{space_name}[/green] has been created successfully")
 
@@ -105,7 +105,7 @@ def switch(space_name: str):
         print(
             f":grimacing: Oh no... '[red]{space_name}[/red]' space is not available. Please create it first"
         )
-        raise typer.Exit()
+        raise typer.Exit(code=1)
 
     todo_config.save(
         filepath=DEFAULT_TODO_CONFIG,
