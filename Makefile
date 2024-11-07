@@ -18,7 +18,7 @@ install-pre-commit:
 ## Lint using ruff
 .PHONY: ruff
 ruff: 
-	poetry run ruff check
+	poetry run ruff check --fix
 
 ## Format files using black
 .PHONY: format
