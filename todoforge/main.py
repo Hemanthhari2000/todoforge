@@ -92,8 +92,8 @@ def add(
 
         print("Task added successfully")
     except Exception as e:
-        print(f"[red]{e}[/red]")
-        typer.Exit()
+        print(f"Oops... something went wrong!\n[red]{e}[/red]")
+        typer.Exit(code=1)
 
 
 @app.command()
