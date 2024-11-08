@@ -30,8 +30,6 @@ def add(space_name: str):
     """
     try:
         space_name = SpaceModel(name=space_name).name
-        if not DEFAULT_TODO_FOLDER.exists():
-            DEFAULT_TODO_FOLDER.mkdir(parents=True, exist_ok=True)
 
         space_todo_filename = f"{space_name}_todo.json"
         todo_content: dict = {

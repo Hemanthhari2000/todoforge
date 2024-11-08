@@ -1,8 +1,18 @@
+from rich import print
+
 from todoforge.utils.config import todo_config
 from todoforge.utils.constants import (
+    DEFAULT_TODO_CONFIG,
     DEFAULT_TODO_FOLDER,
 )
 from todoforge.utils.db import get_todos
+
+
+def init_folders():
+    if not DEFAULT_TODO_FOLDER.exists():
+        DEFAULT_TODO_FOLDER.mkdir(parents=True, exist_ok=True)
+        spaces_object = {"current_space": "", "spaces": []}
+        todo_config.save(filepath=DEFAULT_TODO_CONFIG, content=spaces_object)
 
 
 def update_todo_status(todo_id: str, status: bool) -> None:
