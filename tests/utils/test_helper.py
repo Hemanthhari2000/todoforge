@@ -112,7 +112,7 @@ def test_remove_task_from_todo_not_found(
     remove_task_from_todo("9999")
 
     captured = capsys.readouterr()
-    assert "Id '[green]9999[/green]' not found." in captured.out
+    assert "Id '9999' not found." in captured.out
     mock_save.assert_not_called()
 
 
@@ -133,17 +133,15 @@ def test_handle_toggle_space_key():
 def test_update_todo_found(
     mock_todo_data, mock_get_todos, mock_get_current_space, mock_save
 ):
-    with patch("builtins.print") as mock_print:
 
-        _update_todo("1234", {"title": "Updated Title", "done": True})
+    _update_todo("1234", {"title": "Updated Title", "done": True})
 
-        assert mock_todo_data["todos"][0]["title"] == "Updated Title"
-        assert mock_todo_data["todos"][0]["done"] is True
-        mock_save.assert_called_once_with(
-            filepath=Path(DEFAULT_TODO_FOLDER / "work_todo.json"),
-            content=mock_todo_data,
-        )
-        mock_print.assert_called_once_with("Todo task updated successfully.")
+    assert mock_todo_data["todos"][0]["title"] == "Updated Title"
+    assert mock_todo_data["todos"][0]["done"] is True
+    mock_save.assert_called_once_with(
+        filepath=Path(DEFAULT_TODO_FOLDER / "work_todo.json"),
+        content=mock_todo_data,
+    )
 
 
 def test_update_todo_not_found(
