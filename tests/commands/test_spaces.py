@@ -34,17 +34,16 @@ def mock_default_todo_folder():
 def test_add_space_command_where_todo_folder_does_not_exists(
     mock_todo_config, mock_default_todo_folder
 ):
-    with patch("pathlib.Path.mkdir") as mock_mkdir:
-        mock_get_current_space, _, mock_save = mock_todo_config
-        mock_get_current_space.return_value = "work"
-        mock_save.return_value = None
+    mock_get_current_space, _, mock_save = mock_todo_config
+    mock_get_current_space.return_value = "work"
+    mock_save.return_value = None
 
-        result = runner.invoke(app, ["add", "work"])
+    result = runner.invoke(app, ["add", "work"])
 
-        assert result.exit_code == 0
-        assert "Space work has been created successfully" in result.output
-        mock_save.assert_called()
-        mock_mkdir.assert_called_once_with(parents=True, exist_ok=True)
+    assert result.exit_code == 0
+    assert "Space work has been created successfully" in result.output
+    mock_save.assert_called()
+    assert mock_save.call_count == 2
 
 
 def test_add_space_command_with_invalid_space_name(
