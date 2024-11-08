@@ -17,6 +17,7 @@ from todoforge.utils.db import (
 from todoforge.utils.helper import (
     edit_task_title_from_todo,
     handle_toggle_space_key,
+    init_folders,
     remove_task_from_todo,
     update_todo_status,
 )
@@ -174,5 +175,10 @@ def remove(
     remove_task_from_todo(todo_id=todo_id)
 
 
-if __name__ == "__main__":
+def run():
+    init_folders()
     app()
+
+
+if __name__ == "__main__":
+    run()

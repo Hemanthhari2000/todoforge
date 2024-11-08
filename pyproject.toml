@@ -44,4 +44,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tdf = "todoforge.main:app"
+tdf = "todoforge.main:run"
