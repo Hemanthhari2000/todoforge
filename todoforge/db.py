@@ -21,7 +21,6 @@ Base.metadata.create_all(engine)
 
 @contextmanager
 def db_session():
-
     session = SessionFactory()
     try:
         yield session

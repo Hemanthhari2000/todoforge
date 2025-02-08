@@ -133,7 +133,6 @@ def test_handle_toggle_space_key():
 def test_update_todo_found(
     mock_todo_data, mock_get_todos, mock_get_current_space, mock_save
 ):
-
     _update_todo("1234", {"title": "Updated Title", "done": True})
 
     assert mock_todo_data["todos"][0]["title"] == "Updated Title"

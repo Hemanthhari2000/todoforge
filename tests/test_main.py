@@ -14,9 +14,7 @@ def mock_todo_config():
         todo_config, "get_current_space"
     ) as mock_get_current_space, patch.object(
         todo_config, "get_spaces_list"
-    ) as mock_get_spaces_list, patch.object(
-        todo_config, "save"
-    ) as mock_save:
+    ) as mock_get_spaces_list, patch.object(todo_config, "save") as mock_save:
         mock_get_spaces_list.return_value = ["work, personal"]
         yield mock_get_current_space, mock_get_spaces_list, mock_save
 
@@ -49,7 +47,6 @@ def test_ls_command_that_should_list_todos_in_current_space(
 
 
 def test_ls_command_where_current_space_is_empty(mock_todo_config):
-
     mock_get_current_space, _, _ = mock_todo_config
     mock_get_current_space.return_value = ""
 
@@ -78,7 +75,6 @@ def test_ls_command_where_len_of_todos_is_zero(mock_todo_config, mock_get_todos)
 
 
 def test_add_command_that_should_add_todo_to_todo_list(mock_get_todos):
-
     new_todo_title = "New Task"
     with patch("todoforge.main.save_todos") as mock_save_todos:
         mock_save_todos.return_value = None
@@ -121,7 +117,6 @@ def test_toggle_command(mock_get_todos, mock_todo_config):
 
 
 def test_done_command_that_should_update_the_status_to_True():
-
     with patch("todoforge.main.update_todo_status") as mock_update_todo_status:
         mock_update_todo_status.return_value = None
 
@@ -131,7 +126,6 @@ def test_done_command_that_should_update_the_status_to_True():
 
 
 def test_undo_command_that_should_update_the_status_to_True():
-
     with patch("todoforge.main.update_todo_status") as mock_update_todo_status:
         mock_update_todo_status.return_value = None
 
@@ -156,7 +150,6 @@ def test_edit_command_that_should_edit_title_of_given_todo():
 
 
 def test_remove_command_that_should_remove_task_from_todo_list():
-
     with patch("todoforge.main.remove_task_from_todo") as mock_remove_task_from_todo:
         mock_remove_task_from_todo.return_value = None
 

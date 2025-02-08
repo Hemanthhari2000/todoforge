@@ -33,7 +33,7 @@ def ls(
     full_id: Annotated[
         bool,
         typer.Option("--full-id/--not-full-id", "-f", help="Show full id for the todo"),
-    ] = False
+    ] = False,
 ):
     """Show todos in current space."""
 
@@ -120,7 +120,7 @@ def done(
             show_default=False,
             help="Todo id. Supports both partial and full id",
         ),
-    ]
+    ],
 ):
     """Mark todo as done."""
     update_todo_status(todo_id=todo_id, status=True)
@@ -135,7 +135,7 @@ def undo(
             show_default=False,
             help="Todo id. Supports both partial and full id",
         ),
-    ]
+    ],
 ):
     """Mark todo as undone."""
     update_todo_status(todo_id=todo_id, status=False)
@@ -150,7 +150,7 @@ def edit(
             show_default=False,
             help="Todo id. Supports both partial and full id",
         ),
-    ]
+    ],
 ):
     """Edit todo title."""
 
@@ -168,7 +168,7 @@ def remove(
             show_default=False,
             help="Todo id. Supports both partial and full id",
         ),
-    ]
+    ],
 ):
     """Remove a task from the todo list."""
 

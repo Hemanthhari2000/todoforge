@@ -13,9 +13,7 @@ def mock_todo_config():
         todo_config, "get_current_space"
     ) as mock_get_current_space, patch.object(
         todo_config, "get"
-    ) as mock_get, patch.object(
-        todo_config, "save"
-    ) as mock_save:
+    ) as mock_get, patch.object(todo_config, "save") as mock_save:
         yield mock_get_current_space, mock_get, mock_save
 
 

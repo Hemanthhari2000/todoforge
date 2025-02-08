@@ -4,7 +4,6 @@ from todoforge.utils.models import SpaceModel, TodoModel
 
 
 def test_space_model_should_throw_value_error_for_invalid_name():
-
     with pytest.raises(
         ValueError,
         match="name must contain only letters and numbers, no special characters allowed.",
