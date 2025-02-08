@@ -3,11 +3,15 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
+from todoforge.db import get_db_url
 from todoforge.schema import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+# overwrite the desired value
+config.set_main_option("sqlalchemy.url", get_db_url())
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
