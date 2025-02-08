@@ -20,17 +20,17 @@ install-pre-commit:
 ruff: 
 	poetry run ruff check --fix
 
-## Format files using black
+## Format files 
 .PHONY: format
 format: 
-	poetry run ruff check --fix
-	poetry run black .
+	poetry run ruff check --fix .
+	poetry run ruff format .
 
 # Run checks (ruff + test + typing)
 .PHONY: check
 check: 
 	poetry run ruff check .
-	poetry run black --check .
+	poetry run ruff format .
 	poetry run dmypy run -- .
 
 # Run tests
