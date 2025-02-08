@@ -5,12 +5,7 @@ repos:
     rev: v0.7.1 
     hooks:
       - id: ruff
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
-    hooks:
-      - id: black
-        name: black-format
-        args: ["--fast"]
+      - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.13.0
     hooks:
