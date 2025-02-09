@@ -9,6 +9,7 @@ from rich.table import Table
 from typing_extensions import Annotated
 
 from todoforge.commands import spaces
+from todoforge.models import TodoModel
 from todoforge.utils.config import todo_config
 from todoforge.utils.db import (
     get_todos,
@@ -21,7 +22,6 @@ from todoforge.utils.helper import (
     remove_task_from_todo,
     update_todo_status,
 )
-from todoforge.utils.models import TodoModel
 from todoforge.utils.ui.menu import show_options
 
 app = typer.Typer(no_args_is_help=True)

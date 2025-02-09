@@ -1,6 +1,6 @@
 import pytest
 
-from todoforge.utils.models import SpaceModel, TodoModel
+from todoforge.models import SpaceModel, TodoModel
 
 
 def test_space_model_should_throw_value_error_for_invalid_name():

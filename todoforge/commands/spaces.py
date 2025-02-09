@@ -1,12 +1,12 @@
 import typer
 from rich import print
 
+from todoforge.models import SpaceModel
 from todoforge.utils.config import todo_config
 from todoforge.utils.constants import (
     DEFAULT_TODO_CONFIG,
     DEFAULT_TODO_FOLDER,
 )
-from todoforge.utils.models import SpaceModel
 
 app = typer.Typer()
 
