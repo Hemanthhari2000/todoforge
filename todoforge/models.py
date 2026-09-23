@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 from pydantic import BaseModel, field_validator
 
+from todoforge.db.schema import Space
+
 
 class SpaceModel(BaseModel):
     name: str
@@ -15,6 +17,10 @@ class SpaceModel(BaseModel):
                 "name must contain only letters and numbers, no special characters allowed."
             )
         return value
+
+    @staticmethod
+    def from_db_model(spaces: list[Space]):
+        return [SpaceModel.model_validate(space) for space in spaces]
 
 
 class TodoModel(BaseModel):

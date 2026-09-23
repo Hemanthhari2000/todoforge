@@ -31,3 +31,12 @@ class Todo(Base):
 
     def __repr__(self) -> str:
         return f"<Todo title={self.title} done={self.done}>"
+
+
+class AppState(Base):
+    __tablename__ = "app_state"
+
+    id = Column(Integer, primary_key=True)
+    current_space_id = Column(Integer, ForeignKey("spaces.id"), nullable=True)
+
+    current_space = relationship("Space", backref="app_state")
